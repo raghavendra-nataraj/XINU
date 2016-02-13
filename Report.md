@@ -1,5 +1,6 @@
+============
 Working :
-
+============
 The program works on "Busy Waiting". Two global valatile variables count and inbox[] are declared. The count variable is decremented in each process. The count variable before decrementing is the same value as the inbox value of the current process. The entry condition to each process to print is based on the remainder of the count when divided by NUM_PROCESSES. The reminder will have to be equal to any of the process ID. So only when it is equal the process is valid to print, otherwise it is in "Busy Waiting" state.
 
 Output :-
