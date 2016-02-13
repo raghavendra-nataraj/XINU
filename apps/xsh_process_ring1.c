@@ -8,42 +8,76 @@ void ring_process(int ring_element){
 	int round = 0;
 	//int count = numberOfRounds * NUM_PROCESSES;
 	while(1){
-		// proper
+
+//**********************************************************
+		/* Runs Correctly */
+//**********************************************************
+
 		if(count%NUM_PROCESSES == (NUM_PROCESSES-ring_element)%NUM_PROCESSES){
 			//count = inbox[ring_element];	
 			kprintf("Ring Element %d : Round %d : Value : %d\n",ring_element,round++,inbox[ring_element]);		
 			inbox[(ring_element+1)%NUM_PROCESSES]=--count;
 
-			if(count<0) return;		
-		}
+			if(count==0) 
+			{
+				count--;
+				kprintf("Zero!!");
+				return;	
+			}	
+		} 
 	
-		// wrong order
+//**********************************************************
+		/* Print out of order */
+//**********************************************************
+
 		/*if(count%NUM_PROCESSES == (NUM_PROCESSES-ring_element)%NUM_PROCESSES){
 			//count = inbox[ring_element];	
 			inbox[(ring_element+1)%NUM_PROCESSES]=--count;
 			kprintf("Ring Element %d : Round %d : Value : %d\n",ring_element,round++,inbox[ring_element]);		
 	
 
-			if(count<0) return;		
+			if(count==0) 
+			{
+				count--;
+				kprintf("Zero!!");
+				return;	
+			}	
 		}*/
 
-		//Infinite
+//***********************************************************
+		/* Enter Infinite loop */
+//***********************************************************
+
 		/*if(inbox[ring_element]%NUM_PROCESSES == (NUM_PROCESSES-ring_element)%NUM_PROCESSES){
 			count = inbox[ring_element];	
 			kprintf("Ring Element %d : Round %d : Value : %d\n",ring_element,round++,inbox[ring_element]);		
 			inbox[(ring_element+1)%NUM_PROCESSES]=count-1;
 
-			if(count<0) return;		
+			if(count==0) 
+			{
+				count--;
+				kprintf("Zero!!");
+				return;	
+			}	
 		}*/
+//**********************************************************
+		/* Enter a Deadlock */
+//**********************************************************
 
-		// hang internal count
-		/*if(count%NUM_PROCESSES == (NUM_PROCESSES-ring_element)%NUM_PROCESSES){
-			//count = inbox[ring_element];	
+
+		/*if(inbox[ring_element]%NUM_PROCESSES == (NUM_PROCESSES-ring_element)%NUM_PROCESSES){
+			inbox[ring_element]=count;	
 			inbox[(ring_element+1)%NUM_PROCESSES]=count-1;
 			kprintf("Ring Element %d : Round %d : Value : %d\n",ring_element,round++,inbox[ring_element]);		
 			count = count-1;
-			if(count<0) return;		
-		}*/	
+			if(count==0) 
+			{
+				count--;
+				kprintf("Zero!!");
+				return;	
+			}	
+		}*/
+	
 		//printf("Count = %d\n",count);		
 		if(count<0) return;		
 	}
