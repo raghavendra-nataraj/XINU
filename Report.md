@@ -81,7 +81,7 @@ This behaviour is achieved by changing the entry condition inside loop by replac
 
 Q2. Why does your program go into an infinite loop? What is the name of this behavior?
 
-The program creates 4 process. Due to the I/O inturupt first process is swaped before executing all the statements in that loop.Now lets consider the case with input as 4. Here for the first round value goes as 20 -> 19 -> 18 -> 17. But, after that in second round the variable 'Count' (which is a global variable) gets decremented, but the context switch happens due to system call (kprintf) before it could be written to the inbox of next process. Since, there is no explicit sychronization implemented the next process starts executing and uses the previous value in its inbox and updates the 'Count' with that value. Hence it never reaches 0 and does not exit the loop.
+The program creates 4 process. Due to the I/O inturupt first process is swaped before executing all the statements in that loop.Now lets consider the case with input as 4. Here for the first round value goes as 20 -> 19 -> 18 -> 17. But, after that in second round the variable 'Count' (which is a global variable) gets decremented, but the context switch happens due to system call (kprintf) before it could be written to the inbox of next process. Since, there is no explicit sychronization implemented the next process starts executing and uses the previous value in its inbox and updates the 'Count' with that value. Hence it never reaches 0 and does not exit the loop. This is called unbounded context switching.
 
 Q3. Why does your program print numbers out of order? What is the name of this behavior?
 
