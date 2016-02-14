@@ -1,7 +1,7 @@
 ============
 Working :
 ============
-The program works on "Busy Waiting". Two global valatile variables count and inbox[] are declared. The count variable is decremented in each process. The count variable before decrementing is the same value as the inbox value of the current process. The entry condition to each process to print is based on the remainder of the count when divided by NUM_PROCESSES. The reminder will have to be equal to any of the process ID. So only when it is equal the process is valid to print, otherwise it is in "Busy Waiting" state.
+The program works on "Busy Waiting". Two global valatile variables count and inbox[] are declared. The count variable is decremented in each process. The entry condition for each process to print, update global variable and write into next process' inbox is based on the remainder of the count when divided by NUM_PROCESSES. The remainder will have to be equal to the corresponding process ID. So only when it is equal the process is valid to print, otherwise it is in "Busy Waiting" state. Once the process is inside the block, the count variable has the same value as the inbox value of the current process before decrementing.
 
 Output :-
 xsh $ process_ring 3
@@ -19,8 +19,8 @@ Ring Element 2 : Round 2 : Value : 2
 Ring Element 3 : Round 2 : Value : 1
 Zero!!
 
-The primary differnce between the correct working program and other programs is we have used is count and the inbox of current process interchageably.
-Also the statement inside the loop are altered its position before and after the printf(system call).
+The primary differnce between the correct working program and other programs is we have used count and the inbox of current process interchageably.
+Also the statements inside the loop are altered in their order of execution (before and after the printf -system call).
 
 ===============
 Wrong Order 
@@ -51,7 +51,7 @@ The infinite is achieved by replacing the count variable by inbox value.
 ============
 DeadLock :-
 ============
-In deadlock we introduce a redundant statement where we assign the count to inbox of same process(The values are same however).The output also has a "ps" command output which displays the current running process. Where the "i" has four running process which is created by the program.
+In deadlock we introduce a redundant statement where we assign the count to inbox of same process(However, the values should be same in synchrounous manner). The output also has a "ps" command output which displays the current running process. Where the "i" has four running process which is created by the program.
 
 Output:-
 
@@ -78,7 +78,7 @@ Pid Name             State Prio Ppid Stack Base Stack Ptr  Stack Size
 ===================================================================
 Q1. Why does your program hang? What is the name of this behavior?
 
-This behaviour is achieved by changing the entry condition inside loop by replacing the count variable with inbox variable and adding a redundant line in the loop. At the begining of each loop the count variable and the inbox of the current process is same. We add a statement to assign count to inbox of current process. In a synchronous behavior this will not have any effect. However in an asynchronour behaviour, the context switch happens due to system call(printf) before the count variable is decremented. So this will assign the same count value to the inbox. This makes it void of entry into the "if" condition. The same happens for all four processes and all the loops become "busy waiting".This behaviour is called deadlock.
+This behaviour is achieved by changing the entry condition inside loop by replacing the count variable with inbox variable and adding a redundant line in the loop. At the begining of each loop the count variable and the inbox of the current process is same. We add a statement to assign count to inbox of current process. In a synchronous behavior this will not have any effect. However in an asynchronour behaviour, the context switch happens due to system call(printf) before the count variable is decremented. So this will assign the same count value to the inbox. This makes it void of entry into the "if" condition. The same happens for all four processes and all the processes go to "busy waiting". Since, none of the processes are able to update the count variable and each wait on it to be updated inorder to enter the 'if condition, the program hang. This behaviour is called deadlock.
 
 Q2. Why does your program go into an infinite loop? What is the name of this behavior?
 
