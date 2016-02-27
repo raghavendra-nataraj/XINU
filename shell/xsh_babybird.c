@@ -3,6 +3,7 @@
 int num_baby_birds = 0;
 int num_fetch_worms = 0;
 int num_eat_worms = 0;
+volatile int babyExited = 0;
 volatile int wormsLeft = 0;	
 volatile mutex_t babyMutex;
 volatile mutex_t parentMutex;
@@ -10,6 +11,11 @@ volatile cond_t parentCond;
 volatile cond_t babyCond;
 shellcmd xsh_babybird(int32 args,char *argv[]) {
 	int i;
+	num_baby_birds = 0;
+	num_fetch_worms = 0;
+	num_eat_worms = 0;	
+	babyExited = 0;
+	wormsLeft = 0;
 	num_baby_birds = atoi(argv[1]);
 	num_fetch_worms = atoi(argv[2]);
 	num_eat_worms = atoi(argv[3]);
@@ -25,5 +31,6 @@ shellcmd xsh_babybird(int32 args,char *argv[]) {
 	{
 		resume(create(baby_bird,1024,20,"Baby",1,i));
 	}
+	
 	return 0;
 }

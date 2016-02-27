@@ -16,5 +16,8 @@ int i=0;
 		mutex_unlock(&babyMutex);
 
 	}
+	babyExited++;
+	if(babyExited==num_baby_birds)
+		cond_signal(&parentCond);
 }
 
