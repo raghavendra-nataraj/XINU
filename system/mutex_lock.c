@@ -7,7 +7,7 @@
  *------------------------------------------------------------------------
  */
 syscall	mutex_lock(
-	  mutex_t*	lock		/* Pointer to lock to be held*/
+	 volatile  mutex_t*	lock		/* Pointer to lock to be held*/
 	)
 {
 	if (lock == NULL)

@@ -8,13 +8,11 @@
  *------------------------------------------------------------------------
  */
 syscall	mutex_create(
-	  mutex_t*	lock		/* Initial lock status	*/
+	  volatile mutex_t*	lock		/* Initial lock status	*/
 	)
 {
 	if (lock == NULL)
 		return SYSERR;
-	if (test_and_set(lock)) {
-		*lock = 0;
-		return OK;
-	}
+	*lock = 0;
+	return OK;
 }

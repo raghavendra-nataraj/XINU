@@ -1,10 +1,12 @@
 #include <bird.h>
 void parent_bird(){
-	while(1){
-		wait(empty);
-		wait(mutex);
-		wormsLeft = wormsCount;
-		printf("Parent filling: worms count %d\n",wormsLeft);
-		signal(mutex);
+	while(1){		
+		mutex_lock(&babyMutex);
+		cond_wait(&parentCond,&babyMutex);
+		wormsLeft = num_fetch_worms;
+		printf("Parent bird filled the dish with %d worms!\n",num_fetch_worms);
+		cond_signal(&babyCond);
+		mutex_unlock(&babyMutex);
 	}
 }
+

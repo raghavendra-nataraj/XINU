@@ -1,9 +1,7 @@
 #include <xinu.h>
-syscall cond_init(cond_t* cv){
+syscall cond_init(volatile cond_t* lock){
 	if (lock == NULL)
 		return SYSERR;
-	if (test_and_set(lock)) {
-		*lock = 0;
-		return OK;
-	}
+	*lock = 0;
+	return OK;
 }

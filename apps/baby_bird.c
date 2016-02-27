@@ -1,12 +1,20 @@
 #include <bird.h>
 void baby_bird(int id){	
-	while(1){
-		if(wormsLeft==0)
-			signal(empty);
-		wait(mutex);
+int i=0;
+	while(i < num_eat_worms){
+		mutex_lock(&babyMutex);
+		cond_wait(&babyCond,&babyMutex);
+		if(wormsLeft == 0){
+			cond_signal(&parentCond);
+			cond_wait(&babyCond,&babyMutex);
+		}
+		
+		printf("Baby bird %d ate a worm! worm %d,%d\n",id,wormsLeft,i);
 		wormsLeft--;
-		printf("Baby %d eating worm %d\n",id,wormsLeft);
-		signal(mutex);
-		sleep(1);
+		i++;
+		cond_signal(&babyCond);
+		mutex_unlock(&babyMutex);
+
 	}
 }
+
