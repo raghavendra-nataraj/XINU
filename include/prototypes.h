@@ -610,6 +610,23 @@ extern	void	xdone(void);
 /* in file yield.c */
 extern	syscall	yield(void);
 
+/* in file cond_wait.c */
+syscall cond_wait(volatile cond_t* ,volatile  mutex_t* );
+
+/* in file cond_init.c */
+syscall cond_init(volatile cond_t*);
+
+/* in file cond_signal.c */
+syscall cond_signal(volatile  mutex_t* lock);
+
+/* in file mutex_create.c */
+syscall	mutex_create(volatile  mutex_t*);
+
+/* in file mutex_lock.c */	
+syscall	mutex_lock( volatile  mutex_t*);
+
+/* in file mutex_unlock.c */	
+syscall	mutex_unlock(volatile  mutex_t*);
 
 
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */

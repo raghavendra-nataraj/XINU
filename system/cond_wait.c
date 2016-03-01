@@ -4,6 +4,7 @@ syscall cond_wait(volatile cond_t* cv,volatile  mutex_t* lock){
 		return SYSERR;
 	mutex_unlock(lock);
 	while (test_and_set(cv)) ;
+	//resched();
 	mutex_lock(lock);
 	
 	return OK;

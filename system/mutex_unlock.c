@@ -12,7 +12,7 @@ syscall	mutex_unlock(
 {
 	if (lock == NULL)
 		return SYSERR;
-
+	//resched();
 	*lock = 0;
 	
 	return OK;
