@@ -11,7 +11,7 @@ int i=0;
 			mutex_unlock(&babyMutex1);
 		}
 		
-		printf("Baby bird %d ate a worm! worm %d,%d\n",id,wormsLeft,i);
+		printf("Baby bird %d ate a worm! worm %d\n",id,wormsLeft);
 		wormsLeft--;
 		i++;
 		//cond_signal(&babyCond);
