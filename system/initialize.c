@@ -15,11 +15,13 @@ extern	void xdone(void);	/* System "shutdown" procedure		*/
 static	void sysinit(); 	/* Internal system initialization	*/
 extern	void meminit(void);	/* Initializes the free memory list	*/
 
+
 /* Declarations of major kernel variables */
 
 struct	procent	proctab[NPROC];	/* Process table			*/
 struct	sentry	semtab[NSEM];	/* Semaphore table			*/
 struct	memblk	memlist;	/* List of free memory blocks		*/
+struct shment shmtab[NSHMENT];  /* Shared Memory Table			*/
 
 /* Active system status */
 
@@ -111,6 +113,7 @@ static	void	sysinit()
 	int32	i;
 	struct	procent	*prptr;		/* Ptr to process table entry	*/
 	struct	sentry	*semptr;	/* Prr to semaphore table entry	*/
+	struct	shment	*shmptr;	/* Prr to shared memory table entry	*/
 
 	/* Platform Specific Initialization */
 
@@ -158,11 +161,21 @@ static	void	sysinit()
 	/* Initialize semaphores */
 
 	for (i = 0; i < NSEM; i++) {
+		shmptr = &shmtab[i];
+		shmptr->key = -1;
+		shmptr->refcount = 0;
+		shmptr->size = 0;
+    		shmptr->shmemory = NULL;
+	}
+	
+	/* Initialize sharedMemory */
+	for (i = 0; i < NSHMENT; i++) {
 		semptr = &semtab[i];
 		semptr->sstate = S_FREE;
 		semptr->scount = 0;
 		semptr->squeue = newqueue();
 	}
+
 
 	/* Initialize buffer pools */
 

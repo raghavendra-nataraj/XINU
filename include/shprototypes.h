@@ -76,4 +76,8 @@ extern	shellcmd  xsh_help	(int32, char *[]);
 /* in file xsh_hello.c */
 extern 	shellcmd xsh_hello	(int32,	char *[]);
 
+/* in file xsh_demo.c */
 extern shellcmd xsh_babybird	(int32, char *[]);
+
+/* in file xsh_demo.c */
+extern shellcmd xsh_demo	(int32, char *[]);
