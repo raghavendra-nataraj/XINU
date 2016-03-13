@@ -15,4 +15,4 @@ extern struct shment shmtab[];
 
 char *shmat(int16 ,char *, int16);
 char *shmdt(int16 ,int16);
-uint16 shmget(int16, uint32, int16);
+int16 shmget(int16, uint32, int16);
