@@ -6,7 +6,7 @@ void read_process(){
 	mutex_unlock(&shm_mutex);
 	uint16 id;
 	char *addr;
-	id = shmget(key,0,SHM_EXIST);
+	id = shmget(key,0,SHM_FETCH);
 	printf("id=%d\n",id);
  	addr = shmat(id,NULL,0);
 	printf("Read \"%s\" from shared memory\n",addr);
