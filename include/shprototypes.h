@@ -81,3 +81,6 @@ extern shellcmd xsh_babybird	(int32, char *[]);
 
 /* in file xsh_demo.c */
 extern shellcmd xsh_demo	(int32, char *[]);
+
+/* in file xsh_reset.c */
+extern shellcmd xsh_reset	(int32, char *[]);

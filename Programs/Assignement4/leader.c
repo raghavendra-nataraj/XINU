@@ -5,16 +5,21 @@ void leaderPipe(){
 	int i;
 	sem_t *seml = sem_open(SEMLEAD, 0); 
 	sem_t *semf = sem_open(SEMFOLL, 0); 
-	char* data = (char*)calloc(sizeof(char) , pow(2,30));
+	long* data = (long*)calloc(sizeof(long) , pow(2,20));
 	int shmid;
 	for(i=0;i<10;i++){
-		bzero(data,pow(2,30));
+		bzero(data,SIZE);
 		printf("Leader=%d\n",i);
-		writeData(i,FOLLOWER,data);
+		writeData(i,LEADER,data);
 		sem_wait(seml);
-		verify(i,LEADER);
+		verify(i,FOLLOWER);
 		sem_post(semf);
+		//printf("Time per iteration : %f sec",totaltime);		
 	}
+	
+	//printf("Time : %f sec",totaltime);
+        //totalavg.tv_sec /= 10;
+        //totalavg.tv_nsec /= 10;
 	free(data);
 }
 
@@ -23,18 +28,16 @@ void leader(){
 	int i;
 	sem_t *seml = sem_open(SEMLEAD, 0); 
 	sem_t *semf = sem_open(SEMFOLL, 0); 
-	char* data = (char*)calloc(sizeof(char) , pow(2,30));
+	long* data = (long*)calloc(sizeof(long) , pow(2,20));
 	int shmid;
 	for(i=0;i<10;i++){
 		sem_wait(seml);
-		bzero(data,pow(2,30));
+		bzero(data,SIZE);
 		printf("Leader=%d\n",i);
-		writeData(i,FOLLOWER,data);
+		writeData(i,LEADER,data);
 		sem_post(semf);
 		sem_wait(seml);
-		verify(i,LEADER);
-
-
+		verify(i,FOLLOWER);
 	}
 	free(data);
 }
