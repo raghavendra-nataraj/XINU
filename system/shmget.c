@@ -15,7 +15,7 @@ int16 shmget(int16 key, uint32 size, int16 flag){
 		}
 		break;
 	}
-	if((flag & SHM_FETCH) != SHM_FETCH){
+	if(flag == SHM_FETCH){
 		return SYSERR;	
 	}	
 	shmptr = &shmtab[i];

@@ -7,7 +7,14 @@ void read_process(){
 	uint16 id;
 	char *addr;
 	id = shmget(key,0,SHM_FETCH);
-	printf("id=%d\n",id);
+	if(id==SYSERR){
+		printf("Shared Memory Error\n");
+		exit(0);
+	}
  	addr = shmat(id,NULL,0);
+	if(addr==NULL){
+		printf("Shared Memory Error\n");
+		exit(0);
+	}
 	printf("Read \"%s\" from shared memory\n",addr);
 }
