@@ -50,3 +50,7 @@ Questions:
 1. Freebuf is more efficient than freemem in terms of performance (execution time). In case of freebuf the pool ID stored in four bytes preceding the buffer address is used to locate the entry in table of buffer pool, which then links the buffer back to free pool. Whereas in case of freemem, the list is searched until the address of the block to be returned lies between prev and next. Then it combines the new block with adjacent blocks to form one large block on the free list by coalesing it with previous and next block. This coalesing takes more time. But, in case of memory allocation (not buffer allocation) freemem is the most efficient in terms of memory management, since it does coalesing and one large chunk of memory is available after coalesing.
 
 2. The underlying Address translation hardware converts the virtual address to physical address. When the process refers to address 'd', it will be mapped to the memory location that corresponds to 'd' in that process' memory location. Since the hardware maps only the virtual address to specific region in memory it wont allow the process to access other process' stack accidently accidently. 
+
+
+Contribution :
+We split the work into half and then did the debugging and testing together. For the questions we discussed the answers and submit the unanimous answer.  
