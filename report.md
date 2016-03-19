@@ -39,9 +39,9 @@ The single pipe is created before the program is forked and key is the global va
 Annalysis :
 
 Per iteration time taken to complete bidirectional tranfer of 4MiB data (excluding verification) is:
-1. File = 11495386 nsec
-2. Shared Memory = 8175604 nsec
-3. Pipes = 17301721 nsec
+1. File = 21155635 nsec
+2. Shared Memory = 17347642 nsec
+3. Pipes = 25970459 nsec
 
 Thus we can conclude Shared Memory is the fastest method of Inter Process Communication and Pipes is the slowest (almost double).
 
