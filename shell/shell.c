@@ -32,7 +32,8 @@ const	struct	cmdent	cmdtab[] = {
 	{"hello", 	FALSE, 	xsh_hello},
 	{"babybird",	FALSE, 	xsh_babybird},
 	{"shmdemo",	FALSE,	xsh_demo},
-	{"reset", 	FALSE,	xsh_reset}
+	{"reset", 	FALSE,	xsh_reset},
+	{"prodcons", 	FALSE,	xsh_prodcons}
 
 };
 

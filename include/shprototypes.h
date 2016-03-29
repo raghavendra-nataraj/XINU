@@ -59,6 +59,7 @@ extern	shellcmd  xsh_ps	(int32, char *[]);
 extern	shellcmd  xsh_sleep	(int32, char *[]);
 
 /* in file xsh_udpdump.c */
+
 extern	shellcmd  xsh_udpdump	(int32, char *[]);
 
 /* in file xsh_udpecho.c */
@@ -84,3 +85,7 @@ extern shellcmd xsh_demo	(int32, char *[]);
 
 /* in file xsh_reset.c */
 extern shellcmd xsh_reset	(int32, char *[]);
+
+/* in file xsh_prodcons.c */
+extern shellcmd xsh_prodcons	(int32, char *[]);
+

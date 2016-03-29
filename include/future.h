@@ -1,6 +1,6 @@
 #ifndef _FUTURE_H_
 #define _FUTURE_H_  
-
+typedef qid16 queue;	
 typedef enum {
   FUTURE_EMPTY,
   FUTURE_WAITING,
@@ -26,6 +26,6 @@ typedef struct {
 future_t* future_alloc(future_mode_t mode);
 syscall future_free(future_t*);
 syscall future_get(future_t*, int*);
-syscall future_set(future_t*, int*);
+syscall future_set(future_t*, int);
 
 #endif /* _FUTURE_H_ */
