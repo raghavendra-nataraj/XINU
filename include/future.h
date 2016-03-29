@@ -4,7 +4,7 @@ typedef qid16 queue;
 typedef enum {
   FUTURE_EMPTY,
   FUTURE_WAITING,
-  FUTURE_READY
+  FUTURE_VALID
 } future_state_t;
 
 typedef enum {
@@ -14,7 +14,7 @@ typedef enum {
 } future_mode_t;
 
 typedef struct {
-  int* value;
+  int value;
   future_state_t state;
   future_mode_t mode;
   pid32 pid;
