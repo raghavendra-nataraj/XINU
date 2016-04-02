@@ -5,7 +5,7 @@ syscall future_set(future_t* f, int value){
 	if(f->state == FUTURE_VALID)
 	{
 		if(f->mode == FUTURE_EXCLUSIVE || f->mode == FUTURE_SHARED ){
-			printf("The mode is exclusive , Please change the mode\n");
+			printf("The mode is exclusive or shared , Please change the mode\n");
 			return SYSERR;
 		}else{
 			pid32 pid = getpid();
