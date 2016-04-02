@@ -11,7 +11,7 @@ syscall future_set(future_t* f, int value){
 			pid32 pid = getpid();
 			//printf("set enque = %d\n",pid);
 			enqueue(pid,f->set_queue);
-			suspend(pid);
+			if(suspend(pid)==SYSERR){printf("Suspend failed");}
 		}
 	}
 	if(f->state == FUTURE_EMPTY || f->state == FUTURE_WAITING)
@@ -28,11 +28,11 @@ syscall future_set(future_t* f, int value){
 		if(f->mode == FUTURE_QUEUE){
 			if((pid = dequeue(f->get_queue))!=EMPTY){
 				//printf("get deque = %d\n",pid);
-				resume(pid);
+				if(resume(pid)==SYSERR){printf("Resume failed");}
 			}
 		}else{	
 			while((pid = dequeue(f->get_queue))!=EMPTY){
-				resume(pid);
+				if(resume(pid)==SYSERR){printf("Resume failed");}
 			}
 		}
 		
