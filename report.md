@@ -11,4 +11,4 @@ future_obj->get_queue = creates a new queue and set it to qid.
 
 3. future_set : It sets the value field in future to the value passed as argument to the future_set system call and sets mode to FUTURE_VALID. If the state is FUTURE_VALID it throws error in case of EXCLUSIVE and SHARED (because only one call to future_set is allowed in that case), else it gets its pid, enqueues itself to set_queue and suspends.In case state is FUTURE_EMPTY or FUTURE_WAITING, it enqueues itself to set_queue if the get_queue is empty and suspends. Otherwise it dequeues single process from the get_queue if mode is QUEUE, else all the processes if mode is EXCLUSIVE (will only have one process in the queue) or SHARED.
 
-4. future_free : It frees the memory allocated to future object using freemem.
+4. future_free : It frees the memory allocated to future object using freemem. The main process loops on the future set queue and future get queue till they are empty. Once they are empty the future memory is unallocated
