@@ -12,15 +12,18 @@ uint32 future_cons(future_t* fut);
  */
 shellcmd xsh_prodcons(int nargs, char *args[])
 {
-	int WAIT_MAIN = 1;
 	  future_t* f_exclusive,
           * f_shared,
-          * f_queue;
-  pid32 parentPid = getpid();
+          * f_queue,
+	  * f;
   f_exclusive = future_alloc(FUTURE_EXCLUSIVE);
+  f = f_exclusive;
   f_shared    = future_alloc(FUTURE_SHARED);
+  f = f_shared;
   f_queue     = future_alloc(FUTURE_QUEUE);
+  f = f_queue;
   // Test FUTURE_EXCLUSIVE
+  //resume( create(future_cons, 1024, 20, "fcons2", 1, f_exclusive) );
   resume( create(future_cons, 1024, 20, "fcons1", 1, f_exclusive) );
   resume( create(future_prod, 1024, 20, "fprod1", 1, f_exclusive) );
  
@@ -41,18 +44,7 @@ shellcmd xsh_prodcons(int nargs, char *args[])
   resume( create(future_prod, 1024, 20, "fprod5", 1, f_queue) );
   resume( create(future_prod, 1024, 20, "fprod6", 1, f_queue) );*/
 	
-	/*while(WAIT_MAIN){
-		pid32 i=0;
-		for(i=0;i<NPROC;i++){
-			struct	procent prptr = proctab[i];
-			if(prptr.prparent == parentPid)
-				break;
-			if(i == NPROC-1)
-				WAIT_MAIN = 0;
-		}
-	}*/
-	//future_free(f_exclusive);
-	//future_free(f_shared);
-	//future_free(f_queue);
+	while(!isempty(f->get_queue) || !isempty(f->set_queue)){}
+	future_free(f);
 	return 0;
 }
