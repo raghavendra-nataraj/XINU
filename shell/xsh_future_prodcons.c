@@ -20,15 +20,15 @@ shellcmd xsh_prodcons(int nargs, char *argv[])
 		return 1;
 	}
 	if (nargs == 2 && strncmp(argv[1], "--help", 7) == 0) {
-		printf("Usage: %s -r\n ", argv[0]);
-		printf(" -r is optional\n");
+		printf("Usage: %s -f\n ", argv[0]);
+		printf(" -f is optional\n");
 		return 0;
 	}
 	future_t* f;
 	future_t* f_exclusive,
         	* f_shared,
           	* f_queue;
-	if (nargs == 2 && strncmp(argv[1], "-r", 3) == 0) {
+	if (nargs == 2 && strncmp(argv[1], "-f", 3) == 0) {
 		
 	  	//f_exclusive = future_alloc(FUTURE_EXCLUSIVE);
 	  	//f = f_exclusive;
