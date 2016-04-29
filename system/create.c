@@ -57,7 +57,7 @@ pid32	create(
 	prptr->prdesc[0] = CONSOLE;	/* stdin  is CONSOLE device	*/
 	prptr->prdesc[1] = CONSOLE;	/* stdout is CONSOLE device	*/
 	prptr->prdesc[2] = CONSOLE;	/* stderr is CONSOLE device	*/
-
+	prptr->prdescNum = 3;
 	/* Initialize stack as if the process was called		*/
 
 	*saddr = STACKMAGIC;

@@ -19,6 +19,19 @@ syscall	close(
 		restore(mask);
 		return SYSERR;
 	}
+	pid32 pid = getpid();
+	if (isbadpid(pid) || (pid == NULLPROC)) {
+		restore(mask);
+		return SYSERR;
+	}
+	struct procent  *procTemp = &proctab[pid];
+	int i=0;
+	for(i=0;i<procTemp->prdescNum;i++){
+		if(procTemp->prdesc[i]==descrp){
+			procTemp->prdesc[i] = -1;		
+			break;
+		}
+	}
 	devptr = (struct dentry *) &devtab[descrp];
 	retval = (*devptr->dvclose) (devptr);
 	restore(mask);
