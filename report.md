@@ -1,14 +1,23 @@
-In this assignment we have implemented system calls future_alloc,future_get, future_set and future_free. The program creates three instances of futures with mode set to EXCLUSIVE, SHARED and QUEUE respectively. The respective future is passed as an argument to the new processes, future_prod and future_cons. The future_prod set the value using future_set and future_cons get the value using future_get.
+Answer 
 
-1. future_alloc : Creates a new future instance by allocating memeory using getmem and returns the pointer to it. It sets the following - 
-future_obj->mode = the mode passed as an argument,
-future_obj->state = FUTURE_EMPTY,
-future_obj->pid = 0,
-future_obj->set_queue = creates a new queue and set it to qid,
-future_obj->get_queue = creates a new queue and set it to qid.
-
-2. future_get : It gets the future value which is already set by future_set. If the state is already FUTURE_EMPTY or FUTURE_WAITING, it gets its pid, enque itself to the get_queue and suspends. It sets the state to FUTURE_WAITING and if the state is FUTURE_VALID it also dequeues one process from the set_queue and resumes it. It sets the value argument to the value set by future_get.In the FUTURE_EXCLUSIVE mode if already a process waiting for a get then a error will be returned, since more than one process cannot wait in get queue.
-
-3. future_set : It sets the value field in future to the value passed as argument to the future_set system call and sets mode to FUTURE_VALID. If the state is FUTURE_VALID it throws error in case of EXCLUSIVE and SHARED (because only one call to future_set is allowed in that case), else it gets its pid, enqueues itself to set_queue and suspends.In case state is FUTURE_EMPTY or FUTURE_WAITING, it enqueues itself to set_queue if the get_queue is empty and suspends. Otherwise it dequeues single process from the get_queue if mode is QUEUE, else all the processes if mode is EXCLUSIVE (will only have one process in the queue) or SHARED.
-
-4. future_free : It frees the memory allocated to future object using freemem. The main process loops on the future set queue and future get queue till they are empty. Once they are empty the future memory is unallocated
+  1 disk block = 7 Index nodes
+  1 Index Node = 16 data block pointers
+  Total Number of disc blocks = n
+  Total number of files in directory = k
+  
+  Number of Index node to store 1 file in directory = [1/16]    ->  where [] repreents ceil
+  Number of Disc block to store 1 file in directory = [1/(16*7)]
+  Number of Disc block to store K files in directory = [k/(16*7)]
+  
+  Number of Index node to store data for a file = [x/16]   -> x is the number of data blocks occupied by file contents 
+  Number of Disk Block to store data for a file = [x/(16*7)]
+  Number of Disk Block to store data for k files = i=1 to k :sum([x(i)/(16*7)])
+  
+  so 
+  
+  n = num_dir_block + num_file_block + num_data_block
+  
+  where 
+    num_dir_block = [k/(16*7)]
+    num_file_block = i=1 to k : sum[x(i)/(16*7)]
+    num_data_block =  i=1 to k : sum(x(i))
