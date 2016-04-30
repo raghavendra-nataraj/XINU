@@ -1,3 +1,20 @@
+Implementation
+
+There is a member "prdesc" which is a array in the process entry for each process. It holds the devices opened initially (stdin.stdout,stderr). We have extended the implementation to add the add file opens to "prdesc" array. the total number of opened is stored in  prdescNum. When a file is closed manulaay by user this array values is stored -1. When the process is closed all the values which are not -1 are closed automatically.
+
+
+Files modified
+process.h
+open.c
+kill.c
+close.c
+
+A new file xsh_testFS is added to test this feature. In the file multiple files are open and one is closed . At the end of execution it prints all the file that are not closed. 
+
+
+
+
+
 Answer 
 
   1 disk block = 7 Index nodes
