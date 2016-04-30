@@ -16,6 +16,8 @@ Answer
   
   n = num_dir_block + num_file_block + num_data_block
   
+  Number of Index Block = num_dir_block + num_file_block
+  
   where 
     num_dir_block = [k/(16*7)]
     num_file_block = i=1 to k : sum[x(i)/(16*7)]
