@@ -1,6 +1,6 @@
 Implementation
 
-There is a member "prdesc" which is a array in the process entry for each process. It holds the devices opened initially (stdin.stdout,stderr). We have extended the implementation to add the add file opens to "prdesc" array. the total number of opened is stored in  prdescNum. When a file is closed manulaay by user this array values is stored -1. When the process is closed all the values which are not -1 are closed automatically.
+There is a member "prdesc" which is a array in the process entry for each process. It holds the devices opened initially (stdin.stdout,stderr). We have extended the implementation to add the file opens to "prdesc" array. the total number of opened files is stored in  prdescNum. When a file is closed manualy by user this array value for index corresponding to the file is updated to -1. When the process is closed all the values which are not -1 are closed automatically.
 
 
 Files modified
