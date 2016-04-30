@@ -6,7 +6,6 @@ Answer
   Total number of files in directory = k
   
   Number of Index node to store 1 file in directory = [1/16]    ->  where [] repreents ceil
-  Number of Disc block to store 1 file in directory = [1/(16*7)]
   Number of Disc block to store K files in directory = [k/(16*7)]
   
   Number of Index node to store data for a file = [x/16]   -> x is the number of data blocks occupied by file contents 
