@@ -33,7 +33,8 @@ const	struct	cmdent	cmdtab[] = {
 	{"babybird",	FALSE, 	xsh_babybird},
 	{"shmdemo",	FALSE,	xsh_demo},
 	{"reset", 	FALSE,	xsh_reset},
-	{"prodcons", 	FALSE,	xsh_prodcons}
+	{"prodcons", 	FALSE,	xsh_prodcons},
+	{"testFS", 	FALSE,	xsh_testFS}
 
 };
 

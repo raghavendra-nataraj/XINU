@@ -12,7 +12,7 @@ syscall	kill(
 {
 	intmask	mask;			/* Saved interrupt mask		*/
 	struct	procent *prptr;		/* Ptr to process' table entry	*/
-	int32	i;			/* Index into descriptors	*/
+	int32	i,j;			/* Index into descriptors	*/
 
 	mask = disable();
 	if (isbadpid(pid) || (pid == NULLPROC)
@@ -26,10 +26,18 @@ syscall	kill(
 	}
 
 	send(prptr->prparent, pid);
-	for (i=0; i<prptr->prdescNum; i++) {
-		if(prptr->prdesc[i]!=-1)
+	for (j=3; j<prptr->prdescNum; j++) {
+		if(prptr->prdesc[j]!=-1){
+			printf("index = %d %d\n",j,prptr->prdesc[j]);
+			close(prptr->prdesc[j]);
+		}
+	}	
+	for (i=0; i<3; i++) {
+		if(prptr->prdesc[i]!=-1){
 			close(prptr->prdesc[i]);
+		}
 	}
+	
 	freestk(prptr->prstkbase, prptr->prstklen);
 
 	switch (prptr->prstate) {

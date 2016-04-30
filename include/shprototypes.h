@@ -89,3 +89,5 @@ extern shellcmd xsh_reset	(int32, char *[]);
 /* in file xsh_prodcons.c */
 extern shellcmd xsh_prodcons	(int32, char *[]);
 
+/* in file xsh_testFS.c */
+extern shellcmd xsh_testFS	(int32, char *[]);

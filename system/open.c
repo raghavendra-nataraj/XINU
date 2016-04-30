@@ -38,7 +38,7 @@ syscall	open(
 			return retval;
 		}
 	}
-	if(i==NDESC){
+	if(procTemp->prdescNum==NDESC){
 		restore(mask);
 		return SYSERR;
 	}
