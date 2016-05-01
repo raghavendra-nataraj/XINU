@@ -11,7 +11,7 @@ close.c
 
 A new file xsh_testFS is added to test this feature. In the file multiple files are open and one is closed . At the end of execution it prints all the file that are not closed. 
 
-Note : i have increased the NDESC to 10 (initially it was 5) to test opening and closing more files.
+Note : i have increased the NDESC to 9 (initially it was 5) to test opening and closing more files.
 
 
 
