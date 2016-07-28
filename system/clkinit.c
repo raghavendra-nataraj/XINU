@@ -28,12 +28,13 @@ void	clkinit(void)
 
 	/* Wait until the reset os complete */
 
-	while((csrptr->tistat & AM335X_TIMER1MS_TISTAT_RESETDONE) == 0)
-		/* Do nothing */ ;
+	//while((csrptr->tistat & AM335X_TIMER1MS_TISTAT_RESETDONE) == 0)
+	//	/* Do nothing */ ;
 
 	/* Set interrupt vector for clock to invoke clkint */
 
-	set_evec(AM335X_TIMER1MS_IRQ, (uint32)clkhandler);
+	//set_evec(AM335X_TIMER1MS_IRQ, (uint32)clkhandler);
+	interruptVector[AM335X_TIMER1MS_IRQ] = (uint32)clkhandler;
 
 	sleepq = newqueue();	/* Allocate a queue to hold the delta	*/
 				/*   list of sleeping processes		*/

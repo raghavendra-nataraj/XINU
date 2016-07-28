@@ -32,44 +32,12 @@ tty:
 		-w ttywrite     -s ioerr        -n ttycontrol
 		-intr ttyhandler
 
-/* type of a ethernet device */
-eth:
-	on am335x_eth
-		-i ethinit	-o ioerr	-c ioerr
-		-r ethread	-g ioerr	-p ioerr
-		-w ethwrite	-s ioerr	-n ethcontrol
-		-intr ethhandler
-
-/* type of a remote disk system device */
-rds:
-	on udp
-		-i rdsinit	-o rdsopen	-c rdsclose
-		-r rdsread	-g ioerr	-p ioerr
-		-w rdswrite	-s ioerr	-n rdscontrol
-		-intr ionull
-
 /* type of ram disk */
 ram:
 	on mem
 		-i raminit	-o ramopen	-c ramclose
 		-r ramread	-g ioerr	-p ioerr
 		-w ramwrite	-s ioerr	-n ioerr
-		-intr ionull
-
-/* type of a remote file system device */
-rfs:
-	on udp
-		-i rfsinit	-o rfsopen	-c ioerr
-		-r ioerr	-g ioerr	-p ioerr
-		-w ioerr	-s ioerr	-n rfscontrol
-		-intr ionull
-
-/* type of a remote file pseudo-device */
-rfl:
-	on rfs
-		-i rflinit	-o ioerr	-c rflclose
-		-r rflread	-g rflgetc	-p rflputc
-		-w rflwrite	-s rflseek	-n ioerr
 		-intr ionull
 
 /* type of a local file system master device */
@@ -96,46 +64,39 @@ nam:
 		-w ioerr 	-s ioerr 	-n ioerr
 		-intr ioerr
 
+/* simple loopback device */
+loopback:
+	on LOOPBACK
+		-i loopbackInit	-o loopbackOpen -c loopbackClose
+		-r loopbackRead	-g loopbackGetc -p loopbackPutc
+		-w loopbackWrite -n loopbackControl
+
+/* physical uart (PL011) device */
+uart:
+	on HARDWARE
+		-i uartInit	-o ionull	-c ionull
+		-r uartRead	-g uartGetc	-p uartPutc
+		-w uartWrite	-n uartControl
+		-intr uartInterrupt
+
+
 %%
 
 /* Actual device declarations that each give the name of a device that	*/
 /*   will be present in the system					*/
 
    /* Define the console device to be a tty and specify CSR*/
-   CONSOLE is tty  on uart  csr 0x44E09000 -irq 72
+   CONSOLE is tty  on uart  csr 0x0 -irq 72
 
    /* Define a null device */
    NULLDEV is null on nothing
 
-   /* Physical Ethernet (raw packet transfer) */
-   ETHER0 is eth   on am335x_eth csr 0 -irq 0
-
    /* Define a namespace device */
    NAMESPACE is nam on top
 
-   /* Define a remote disk system device */
-   RDISK is rds on udp
-   
    /* Define a ram disk device */
    RAM0 is ram on mem
  
-   /* Define the remote file system device */
-
-   RFILESYS is rfs on udp
-
-   /* Define remote file pseudo-devices */
-
-   RFILE0 is rfl on rfs
-   RFILE1 is rfl on rfs
-   RFILE2 is rfl on rfs
-   RFILE3 is rfl on rfs
-   RFILE4 is rfl on rfs
-   RFILE5 is rfl on rfs
-   RFILE6 is rfl on rfs
-   RFILE7 is rfl on rfs
-   RFILE8 is rfl on rfs
-   RFILE9 is rfl on rfs
-  
    /* Define the local file system master device (one per system) */
 
    LFILESYS is lfs on ram
@@ -148,7 +109,12 @@ nam:
    LFILE3 is lfl on lfs
    LFILE4 is lfl on lfs
    LFILE5 is lfl on lfs
+	
+   SERIAL0   is uart     on HARDWARE csr 0x101F1000 irq 12
 
+   /* Loopback device  */
+   LOOP0     is loopback on LOOPBACK
+	
 %%
 
 /* Configuration and Size Constants */

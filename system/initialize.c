@@ -4,7 +4,7 @@
 
 #include <xinu.h>
 #include <string.h>
-
+#include <platform.h>
 extern	void	start(void);	/* Start of Xinu code			*/
 extern	void	*_end;		/* End of Xinu code			*/
 
@@ -25,7 +25,7 @@ struct	memblk	memlist;	/* List of free memory blocks		*/
 
 int	prcount;		/* Total number of live processes	*/
 pid32	currpid;		/* ID of currently executing process	*/
-
+struct platform platform; 
 /*------------------------------------------------------------------------
  * nulluser - initialize the system and become the null process
  *
@@ -118,7 +118,7 @@ static	void	sysinit()
 
 	/* Initialize the interrupt vectors */
 
-	initevec();
+	//initevec();
 	
 	/* Initialize free memory list */
 	

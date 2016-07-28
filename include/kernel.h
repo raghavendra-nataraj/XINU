@@ -68,6 +68,6 @@ extern	qid16	readylist;	/* global ID for list of ready processes*/
 
 /* Prototypes of I/O functions used throughout the kernel */
 
-syscall	kprintf(char *fmt, ...);
-syscall	kputc(byte);
-syscall	kgetc(void);
+//syscall	kprintf(char *fmt, ...);
+//syscall	kputc(byte);
+//syscall	kgetc(void);

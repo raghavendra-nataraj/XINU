@@ -15,10 +15,10 @@ status	gettime(
 
 	/* Get current time in UCT representation (GMT) */
 
-	retval = getutime(&now);
-	if (retval == SYSERR) {
-		return SYSERR;
-	}
+	//retval = getutime(&now);
+	//if (retval == SYSERR) {
+	//	return SYSERR;
+	//}
 
 	/* Adjust to xinu time and store result */
 

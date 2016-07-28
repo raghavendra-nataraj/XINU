@@ -1,5 +1,8 @@
 /* interrupt.h */
 
+
+#ifndef _INTERRUPT_H_
+#define _INTERRUPT_H_
 extern	uint16	girmask;	/* mask of interrupts being serviced	*/
 				/* a bit of 1 corresponds to an		*/
 				/* interrupt that is allowed.		*/
@@ -35,9 +38,21 @@ struct intc_csreg {
 	uint32	ilr[128];
 };
 
+typedef interrupt (*interrupt_handler_t)(void);
+
+extern interrupt_handler_t interruptVector[];
+
+void enable(void);
+intmask disable(void);
+void restore(intmask);
+void enable_irq(intmask);
+void disable_irq(intmask);
+
 #define INTC_SYSCONFIG_SOFTRESET	0x00000002
 #define INTC_SYSSTATUS_RESETDONE	0x00000001
 
 #define INTC_SIR_IRQ_MASK	0x0000007F
 
 #define INTC_CONTROL_NEWIRQAGR	0x00000001
+
+#endif

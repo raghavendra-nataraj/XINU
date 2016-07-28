@@ -2,7 +2,7 @@
 
 #include <xinu.h>
 #include <stdio.h>
-
+#include <stddef.h>
 struct dateinfo Date = {0, FALSE, DATE_DST_AUTO,
 		       {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
 		       {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",

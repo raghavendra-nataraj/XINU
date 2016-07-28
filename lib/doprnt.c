@@ -25,7 +25,7 @@ static void _prtl2(long num, char *str);
  * @param *func character output function
  * @param farg argument for character output function
  */
-void _doprnt(char *fmt, va_list ap, int (*func) (int))
+void _doprnt(char *fmt, va_list ap, int (*func) (int,int),void *devptr)
 {
     int c;
     int i;
@@ -52,12 +52,12 @@ void _doprnt(char *fmt, va_list ap, int (*func) (int))
             {
                 return;
             }
-            (*func) (c);
+            (*func) (c,devptr);
         }
         /* Echo "...%%..." as '%' */
         if (*fmt == '%')
         {
-            (*func) (*fmt++);
+            (*func) (*fmt++,devptr);
             continue;
         }
         /* Check for "%-..." == Left-justified output */
@@ -104,7 +104,7 @@ void _doprnt(char *fmt, va_list ap, int (*func) (int))
         str = string;
         if ((f = *fmt++) == '\0')
         {
-            (*func) ('%');
+            (*func) ('%',devptr);
             return;
         }
         sign = '\0';            /* sign == '-' for negative decimal */
@@ -210,7 +210,7 @@ void _doprnt(char *fmt, va_list ap, int (*func) (int))
             break;
 
         default:
-            (*func) (f);
+            (*func) (f,devptr);
             break;
         }
         for (length = 0; str[length] != '\0'; length++)
@@ -245,27 +245,27 @@ void _doprnt(char *fmt, va_list ap, int (*func) (int))
         }
         if (sign == '-' && fill == '0')
         {
-            (*func) (sign);
+            (*func) (sign,devptr);
         }
         if (leftjust == 0)
         {
             for (i = 0; i < leading; i++)
             {
-                (*func) (fill);
+                (*func) (fill,devptr);
             }
         }
         if (sign == '-' && fill == ' ')
         {
-            (*func) (sign);
+            (*func) (sign,devptr);
         }
         for (i = 0; i < length; i++)
         {
-            (*func) (str[i]);
+            (*func) (str[i],devptr);
         }
         if (leftjust != 0)
         {
             for (i = 0; i < leading; i++)
-                (*func) (fill);
+                (*func) (fill,devptr);
         }
     }
 
