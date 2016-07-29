@@ -150,10 +150,10 @@ clean:
 install: xinu
 	cp xinu.boot /tftpboot
 
-qemu:
+qemu: xinu
 	qemu-system-arm -M versatilepb -m 3G -nographic -cpu arm1176  -kernel xinu.boot 
 
-qemu-gdb:
+qemu-gdb: xinu
 	qemu-system-arm -M versatilepb -m 3G -nographic -cpu arm1176  -kernel xinu.boot -S -gdb tcp::${GPORT}
 #--------------------------------------------------------------------------------
 # Locations of source directories and exceptions (.c and .[sS] files to exclude)

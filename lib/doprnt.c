@@ -25,7 +25,7 @@ static void _prtl2(long num, char *str);
  * @param *func character output function
  * @param farg argument for character output function
  */
-void _doprnt(char *fmt, va_list ap, int (*func) (int,int),void *devptr)
+void _doprnt(char *fmt, va_list ap, int (*func) (int,void *),void *devptr)
 {
     int c;
     int i;
