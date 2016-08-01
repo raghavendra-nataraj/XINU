@@ -2,6 +2,18 @@
 
 #include <xinu.h>
 
+static uint date_time = 0;
+
+uint get_datetime(void)
+{
+    return (date_time + clktime);
+}
+
+uint set_datetime(uint dt)
+{
+    date_time = dt - clktime;
+    return (date_time + clktime);
+}
 /*------------------------------------------------------------------------
  *  gettime  -  Get xinu time in seconds past Jan 1, 1970
  *------------------------------------------------------------------------
@@ -22,6 +34,6 @@ status	gettime(
 
 	/* Adjust to xinu time and store result */
 
-	*timvar = utim2ltim(now);
+	*timvar = get_datetime();
 	return OK;
 }
