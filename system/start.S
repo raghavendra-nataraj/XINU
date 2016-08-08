@@ -40,7 +40,7 @@ reset_addr:     .word reset_handler
 undef_addr:     .word reset_handler
 swi_addr:       .word reset_handler
 prefetch_addr:  .word reset_handler
-abort_addr:     .word reset_handler
+abort_addr:     .word page_fault
 reserved_addr:  .word reset_handler
 irq_addr:       .word irq_handler
 fiq_addr:       .word reset_handler
@@ -109,3 +109,5 @@ bssloopa:
 	 * parameters and never returns.  */
 	b nulluser
 	.endfunc
+
+

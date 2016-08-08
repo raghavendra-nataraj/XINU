@@ -84,6 +84,10 @@ void	nulluser()
 	/* Enable interrupts */
 
 	enable();
+	#ifdef MMU
+	/* Initialize MMU(Paging) */
+	initializeMMU();
+	#endif /*MMU*/
 
 	/* Create a process to execute function main() */
 

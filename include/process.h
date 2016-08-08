@@ -1,10 +1,11 @@
 /* process.h - isbadpid */
 
 /* Maximum number of processes in the system */
-
 #ifndef NPROC
 #define	NPROC		8
-#endif		
+#endif	
+
+#define NUM_PAGE_TABLE_ENTRIES 4096 /* 1 entry per 1MB, so this covers 4G address space */
 
 /* Process state constants */
 
@@ -56,7 +57,7 @@ struct procent {		/* Entry in the process table		*/
 
 /* Marker for the top of a process stack (used to help detect overflow)	*/
 #define	STACKMAGIC	0x0A0AAAA9
-
+extern uint32 __attribute__((aligned(16384))) page_table[NPROC][NUM_PAGE_TABLE_ENTRIES];
 extern	struct	procent proctab[];
 extern	int32	prcount;	/* Currently active processes		*/
 extern	pid32	currpid;	/* Currently executing process		*/

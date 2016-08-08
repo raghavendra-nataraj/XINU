@@ -41,10 +41,15 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 	ptnew = &proctab[currpid];
 	ptnew->prstate = PR_CURR;
 	preempt = QUANTUM;		/* Reset time slice for process	*/
+	#ifdef MMU
+	FlushTLB();
+	setPageTable();
+	#endif/*MMU*/
+
 	ctxsw(&ptold->prstkptr, &ptnew->prstkptr);
 
 	/* Old process returns here when resumed */
-
+	//restore();
 	return;
 }
 
